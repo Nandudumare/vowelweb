@@ -1,0 +1,19 @@
+.Navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: right;
+  gap: 2rem;
+  height: 50px;
+  border-radius:10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  margin-top: 1rem;
+  align-content: center;
+}
+
+.links{
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  margin-top: 0.8rem;
+}
