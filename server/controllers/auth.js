@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const transport = nodemailer.createTransport({
   service: "gmail",
-  secure: false,
+  secure: true,
   port: 465, //465:ssl , 587 :tsl
   auth: {
     user: process.env.EMAIL,
@@ -13,6 +13,7 @@ const transport = nodemailer.createTransport({
   host: "smtp.gmail.com",
   tls: {
     rejectUnauthorized: false,
+    secureProtocol: "TLSv1_method",
   },
 });
 
@@ -38,11 +39,11 @@ const Register = async (req, res, next) => {
       from: process.env.EMAIL,
       to: req.body.email,
       subject: "Verify Your Email",
-      text: "Verify your Email : http://localhost:3000/verify",
+      text: `Verify your Email : http://localhost:3000/verify/${newUser._id}`,
     })
     .then((responce) => {
       return res.send({
-        message: "User Verified",
+        message: "Email Sent",
         id: newUser._id,
       });
     });
@@ -61,8 +62,40 @@ const Login = async (req, res, next) => {
   if (!oldUser) {
     return res.status(404).send({ message: "Not Found" });
   }
+  if (oldUser.verified) {
+    return res.send({ message: "success", id: oldUser._id });
+  }
 
-  return res.send({ message: "success", id: oldUser._id });
+  return res.send({ message: "failed, not Verified", id: oldUser._id });
 };
 
-module.exports = { Register, Login };
+const verify = async (req, res) => {
+  const { id } = req.body;
+
+  const user = await userModel.findOne({ id });
+  console.log("user:", user);
+
+  if (user) {
+    let update = await userModel.updateOne(
+      { id },
+      { $set: { verified: true } }
+    );
+    return res.send({ message: "user Verified" });
+  }
+
+  return res.status(400).send({ message: "Something went wrong" });
+};
+
+const getUser = async (req, res, next) => {
+  const { id } = req.params;
+
+  const user = await userModel.findOne({ id });
+
+  if (user) {
+    return res.send(user);
+  }
+
+  return res.status(404).send({ message: "user not found" });
+};
+
+module.exports = { Register, Login, verify, getUser };

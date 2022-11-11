@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +6,14 @@ import axios from "axios";
 export const Register = () => {
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
+
+  useEffect(() => {
+    let id = localStorage.getItem("id");
+
+    if (id) {
+      navigate("/");
+    }
+  }, []);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -31,8 +39,9 @@ export const Register = () => {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit}>
+    <div className="register">
+      <h2 style={{textAlign: 'center'}}>Register Form</h2>
+      <form className="regForm" action="" onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Enter Your Email"

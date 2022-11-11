@@ -1,10 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const VerifyId = () => {
-    
   return (
-    <div>VerifyId</div>
-  )
-}
+    <div>
+      <h3 style={{ textAlign: "center" }}>
+        Verify your Email Id,Check Your Inbox
+      </h3>
+    </div>
+  );
+};
 
-export default VerifyId
+export default VerifyId;

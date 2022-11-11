@@ -7,7 +7,7 @@
   height: 50px;
   border-radius:10px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   align-content: center;
 }
 
@@ -16,4 +16,40 @@
   flex-direction: row;
   gap: 2rem;
   margin-top: 0.8rem;
+}
+
+.register{
+ 
+  border: 1px solid red;
+  margin: auto;
+  height: 300px;
+  width: 30%;
+  margin-top:2rem;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.regForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: auto;
+  margin-top:2.5rem;
+}
+
+input{
+  height: 1.5rem;
+  width: 15rem;
+}
+
+input[type="submit"]{
+  color: white;
+  background-color:teal;
+  /* outline: none; */
+  border: 3px solid teal;
+  height: 1.7rem;
+  width: 15.5rem;
+  
 }

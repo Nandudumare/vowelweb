@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -14,6 +14,14 @@ const Login = () => {
     });
   };
 
+  useEffect(() => {
+    let id = localStorage.getItem("id");
+
+    if (id) {
+      navigate("/");
+    }
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -22,12 +30,15 @@ const Login = () => {
         "http://localhost:8080/api/auth/signin",
         formData
       );
+      console.log("data:", data);
       if (data.data.message === "success") {
         localStorage.setItem("id", data.data.id);
         alert("login success");
         navigate("/");
+      } else if (data.data.message === "Not Found") {
+        alert("User not Exists");
       } else {
-        alert("Invalid Crediential , Try Again");
+        alert("Invalid Crediential or Email not Verified");
       }
       // navigate("/verifyId");
     } catch (err) {
@@ -36,8 +47,9 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={handleSubmit}>
+    <div className="register">
+      <h2 style={{ textAlign: "center" }}>Login Form</h2>
+      <form className="regForm" action="" onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Enter Your Username"

@@ -38,7 +38,7 @@ function App() {
         />
         <Route path="/signup" element={<Register />} />
         <Route path="/signin" element={<Login />} />
-        <Route path="/verify" element={<Verified />} />
+        <Route path="/verify/:id" element={<Verified />} />
         <Route path="/verifyId" element={<VerifyId />} />
       </Routes>
     </div>
